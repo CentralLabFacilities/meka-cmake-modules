@@ -3,20 +3,22 @@
 set(FIND_M3RT_LIB_SUFFIX "")
 
 # find the M3RT include directory
-# message ("!!!M3RT_SRC: ${M3RT_SRC}")
+message ("!!!M3RT_SRC: ${M3RT_SRC}")
 find_path(M3RT_ROOT m3rt/base/toolbox.h
 	PATH_SUFFIXES include
 		PATHS
-		${M3RT_SRC}
+    ${M3RT_SRC}
+    $ENV{M3_DEVEL}
 		/opt/m3
 		/usr/local/
 		/usr)
 
-#message("!!!M3RT ROOT IS ${M3RT_ROOT}")
+message("!!!FindM3RT ROOT IS ${M3RT_ROOT}")
 
 # find the requested modules
 #set(M3RT_FOUND TRUE) # will be set to false if one of the required modules is not found
 set(FIND_M3RT_LIB_PATHS
+    $ENV{M3_DEVEL}
 		/opt/m3
 		/usr/local
 		/usr)

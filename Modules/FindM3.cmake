@@ -7,16 +7,18 @@ find_path(M3_ROOT m3/chains/joint_array.h
 	PATH_SUFFIXES include
 		PATHS
 		${M3_SRC}
+    $ENV{M3_DEVEL}
 		/opt/m3
 		/usr/local/
 		/usr)
 
 #set(M3_ROOT ${M3_ROOT}/m3/)
-#message("!!!M3 ROOT IS ${M3_ROOT}")
+message("!!!FindM3 ROOT IS ${M3_ROOT}")
 
 # find the requested modules
 #set(M3_FOUND TRUE) # will be set to false if one of the required modules is not found
 set(FIND_M3_LIB_PATHS
+    $ENV{M3_DEVEL}
 		/opt/m3
 		/usr/local
 		/usr)
