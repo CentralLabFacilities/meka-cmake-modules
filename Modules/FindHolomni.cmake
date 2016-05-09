@@ -9,14 +9,31 @@ find_package(PkgConfig)
 pkg_check_modules(HOLOMNI QUIET libholomni_pcv libholomni-pcv)
 set(HOLOMNI_DEFINITIONS ${HOLOMNI_CFLAGS_OTHER})
 
-find_path(HOLOMNI_INCLUDE_DIR holomni_pcv/Caster.h holomni-pcv/Caster.h
-          HINTS ${HOLOMNI_INCLUDEDIR} ${HOLOMNI_INCLUDE_DIRS}
-          PATH_SUFFIXES HOLOMNI )
 
+set(FIND_M3_INCLUDE_PATHS
+   ${M3_SRC}
+    $ENV{M3_DEVEL}
+    /opt/m3
+    /usr/local/
+    /usr)
+
+find_path(HOLOMNI_INCLUDE_DIR holomni_pcv/Caster.h holomni-pcv/Caster.h
+          HINTS ${HOLOMNI_INCLUDEDIR} ${HOLOMNI_INCLUDE_DIRS} ${FIND_M3_INCLUDE_PATHS}
+          PATH_SUFFIXES HOLOMNI include)
+
+set(FIND_M3_LIB_PATHS
+    $ENV{M3_DEVEL}
+    /opt/m3
+    /usr/local
+    /usr)
+
+             
 find_library(HOLOMNI_LIBRARY NAMES holomni_pcv holomni-pcv holomni HOLOMNI
-             HINTS ${HOLOMNI_LIBDIR} ${HOLOMNI_LIBRARY_DIRS} )
+             HINTS ${HOLOMNI_LIBDIR} ${HOLOMNI_LIBRARY_DIRS} ${FIND_M3_LIB_PATHS} 
+             )
 
 if(M3RT_FOUND)
+
   set(HOLOMNI_LIBRARIES ${HOLOMNI_LIBRARY} )
   set(HOLOMNI_INCLUDE_DIRS ${HOLOMNI_INCLUDE_DIR} )
 endif(M3RT_FOUND)
